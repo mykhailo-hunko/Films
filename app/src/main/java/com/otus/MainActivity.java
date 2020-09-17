@@ -1,31 +1,43 @@
 package com.otus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Button detailAfter;
-    private Button detailSuper;
-    private TextView after;
-    private TextView super1;
-    static String Code = "intent.com.film";
-    int FilmCodeRed;
+public class MainActivity extends AppCompatActivity {
+    private static List<ItemFilm> items;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        items = FilmsItemLab.getInstance(this).getItems();
 
-        after = findViewById(R.id.after_text);
-        super1 = findViewById(R.id.super_text);
+        recyclerView = findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new FilmsItemAdapter(LayoutInflater.from(this), items));
 
+    }
+    public static List<ItemFilm> getItems() {
+        return items;
+    }
+
+/*
         after.setTextColor(Color.BLACK);
         super1.setTextColor(Color.BLACK);
 
@@ -39,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        detailAfter = findViewById(R.id.detailAfter);
-        detailSuper = findViewById(R.id.detailSuper);
+
 
         detailAfter.setOnClickListener(new View.OnClickListener()
         {
@@ -85,5 +96,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
+*/
 }
