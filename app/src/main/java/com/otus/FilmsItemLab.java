@@ -1,18 +1,16 @@
 package com.otus;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmsItemLab
-{
+public class FilmsItemLab {
     private static List<ItemFilm> items = new ArrayList<>();
 
     private static FilmsItemLab instance;
 
-    private FilmsItemLab (Context context) {
+    private FilmsItemLab(Context context) {
         items.add(new ItemFilm("Супер крэйзи", context.getString(R.string.desc_super), "super1"));
         items.add(new ItemFilm("Довод", context.getString(R.string.desc_tenet), "tenet"));
         items.add(new ItemFilm("Список Шиндлера", context.getString(R.string.desc_shindle), "shindler"));
@@ -26,8 +24,8 @@ public class FilmsItemLab
 
     }
 
-    public static FilmsItemLab getInstance(Context context){
-        if(instance == null) {
+    public static FilmsItemLab getInstance(Context context) {
+        if (instance == null) {
             instance = new FilmsItemLab(context);
         }
 
@@ -36,5 +34,11 @@ public class FilmsItemLab
 
     public static List<ItemFilm> getItems() {
         return items;
+    }
+
+    public static void Adding(String title, String desc) {
+        if(title != null && !title.equals("")) {
+            items.add(new ItemFilm(title, desc, ""));
+        }
     }
 }

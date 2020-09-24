@@ -2,7 +2,7 @@ package com.otus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
-
 
 public class FilmsItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     static final String CodeDesc = "description";
@@ -20,7 +18,6 @@ public class FilmsItemViewHolder extends RecyclerView.ViewHolder implements View
     static final String CodeTitle = "title";
     private ImageView imageFilm;
     private TextView title;
-    private CardView cardView;
 
     public FilmsItemViewHolder (@NonNull View itemView) {
         super(itemView);
@@ -44,5 +41,6 @@ public class FilmsItemViewHolder extends RecyclerView.ViewHolder implements View
         intent.putExtra(CodePhoto, MainActivity.getItems().get(position).photoName);
         intent.putExtra(CodeTitle, MainActivity.getItems().get(position).title);
         context.startActivity(intent);
+
     }
 }

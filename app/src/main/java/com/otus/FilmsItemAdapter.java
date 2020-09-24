@@ -1,6 +1,4 @@
 package com.otus;
-
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 

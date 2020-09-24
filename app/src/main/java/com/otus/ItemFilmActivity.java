@@ -1,10 +1,15 @@
 package com.otus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,32 +39,49 @@ public class ItemFilmActivity extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String textMessage = "Приглашаю тебя на фильм " + "\"" +  FilmTitle + "\"" ;
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-
-
+                Share();
             }
         });
 
     }
 
-    private void ShowFilm () {
+    private void Share() {
+        String textMessage = "Приглашаю тебя на фильм " + "\"" + FilmTitle + "\"";
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
+    private void ShowFilm() {
         String Photo = getIntent().getStringExtra(FilmsItemViewHolder.CodePhoto);
         FilmTitle = getIntent().getStringExtra(FilmsItemViewHolder.CodeTitle);
         String descr = getIntent().getStringExtra(FilmsItemViewHolder.CodeDesc);
 
-        int resId = imageFilm.getContext().getResources().getIdentifier(Photo,"drawable", imageFilm.getContext().getPackageName());
+        int resId = imageFilm.getContext().getResources().getIdentifier(Photo, "drawable", imageFilm.getContext().getPackageName());
         imageFilm.setImageResource(resId);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.anim_text);
+        imageFilm.startAnimation(animation);
         description.setText(descr);
         title.setText(FilmTitle);
-
-
+        description.startAnimation(anim);
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_first, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.invite) {
+            Share();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
