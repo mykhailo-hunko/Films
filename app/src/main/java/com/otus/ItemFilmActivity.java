@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class ItemFilmActivity extends AppCompatActivity {
@@ -35,7 +36,19 @@ public class ItemFilmActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
 
         ShowFilm();
+        imageFilm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View.OnClickListener listener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                };
+
+                Snackbar.make(view,getString(R.string.click), Snackbar.LENGTH_INDEFINITE ).setAction(getString(R.string.click_me), listener).show();
+            }
+        });
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +57,7 @@ public class ItemFilmActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void Share() {
         String textMessage = "Приглашаю тебя на фильм " + "\"" + FilmTitle + "\"";
