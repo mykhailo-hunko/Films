@@ -1,6 +1,7 @@
 package com.otus;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +26,7 @@ public class ItemFilmActivity extends AppCompatActivity {
     private TextView title;
     private String FilmTitle;
     private MaterialButton share;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,11 @@ public class ItemFilmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_film);
 
         imageFilm = findViewById(R.id.filmImage);
-        description = findViewById(R.id.description);
+       description = findViewById(R.id.description);
         share = findViewById(R.id.share);
         title = findViewById(R.id.title);
+        toolbar = findViewById(R.id.toolbar);
+
 
         ShowFilm();
         imageFilm.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +51,7 @@ public class ItemFilmActivity extends AppCompatActivity {
                     }
                 };
 
-                Snackbar.make(view,getString(R.string.click), Snackbar.LENGTH_INDEFINITE ).setAction(getString(R.string.click_me), listener).show();
+                Snackbar.make(view, getString(R.string.click), Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.click_me), listener).show();
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
@@ -55,12 +60,14 @@ public class ItemFilmActivity extends AppCompatActivity {
                 Share();
             }
         });
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
 
     private void Share() {
-        String textMessage = "Приглашаю тебя на фильм " + "\"" + FilmTitle + "\"";
+        String textMessage = getString(R.string.invite) + "\"" + FilmTitle + "\"";
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
@@ -77,10 +84,12 @@ public class ItemFilmActivity extends AppCompatActivity {
         imageFilm.setImageResource(resId);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation);
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.anim_text);
-        imageFilm.startAnimation(animation);
+        //imageFilm.startAnimation(animation);
         description.setText(descr);
-        title.setText(FilmTitle);
-        description.startAnimation(anim);
+        toolbar.setTitle(FilmTitle);
+        setSupportActionBar(toolbar);
+      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //description.startAnimation(anim);
 
     }
 
@@ -92,8 +101,13 @@ public class ItemFilmActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.invite) {
+        int id = item.getItemId();
+        if (id == R.id.invite) {
             Share();
+            return true;
+        }
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
