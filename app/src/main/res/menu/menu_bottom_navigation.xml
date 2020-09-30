@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_map"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="Главный экран"/>
+    <item
+        android:id="@+id/action_add"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="Добавить фильм" />
+
+</menu>

@@ -1,14 +1,16 @@
 package com.otus;
 
 import android.content.Context;
-import android.content.Intent;
-
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 
 public class FilmsItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -33,13 +35,23 @@ public class FilmsItemViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View view) {
-        Context context = view.getContext();
-        Intent intent = new Intent(context, ItemFilmActivity.class);
         int position = getBindingAdapterPosition();
-       intent.putExtra(CodeDesc, MainActivity.getItems().get(position).description);
-        intent.putExtra(CodePhoto, MainActivity.getItems().get(position).photoName);
-        intent.putExtra(CodeTitle, MainActivity.getItems().get(position).title);
-        context.startActivity(intent);
+        Context context = view.getContext();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(CodeDesc, MainFragment.getItems().get(position).description);
+        bundle.putString(CodePhoto, MainFragment.getItems().get(position).photoName);
+        bundle.putString(CodeTitle, MainFragment.getItems().get(position).title);
+        ItemFilmFragment iff = new ItemFilmFragment();
+        iff.setArguments(bundle);
+
+        FragmentActivity activity = (FragmentActivity) context;
+        FragmentManager manager = activity.getSupportFragmentManager();
+        manager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.container_, iff)
+                .commit();
 
     }
 }

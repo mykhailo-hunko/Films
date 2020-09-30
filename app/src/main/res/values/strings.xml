@@ -35,4 +35,6 @@
     <string name="click">Просто клик</string>
     <string name="click_me">Нажми меня</string>
     <string name="invite">Приглашаю тебя на фильм </string>
+    <string name="about">О приложении</string>
+    <string name="about_2020">Михаил Гунько\n 2020</string>
 </resources>
