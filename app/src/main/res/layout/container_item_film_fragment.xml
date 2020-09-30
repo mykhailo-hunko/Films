@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:menu="@menu/menu_bottom_navigation"
-            android:layout_gravity="bottom|center"/>
+            android:layout_gravity="bottom|center"
+            android:background="@color/cardview_light_background"/>
     </FrameLayout>
 
 

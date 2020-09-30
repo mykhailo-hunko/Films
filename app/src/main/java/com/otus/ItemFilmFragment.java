@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,10 +42,16 @@ public class ItemFilmFragment extends Fragment {
         toolbar = v.findViewById(R.id.toolbar);
         return v;
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("ddd", "onDestroyitem");
 
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ddd", "onCreateItemFilm");
         setRetainInstance(true);
     }
 

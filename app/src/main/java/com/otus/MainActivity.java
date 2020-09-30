@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
                         case  R.id.action_add:
                             fr = new AddingFragment();
                             break;
+                        case R.id.favorites:
+                            fr = new FavoritesFragment();
+                            break;
                     }
                 getSupportFragmentManager()
                         .beginTransaction()
