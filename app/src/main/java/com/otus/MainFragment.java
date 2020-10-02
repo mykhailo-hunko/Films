@@ -20,9 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 
 import java.util.List;
+
+import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
     private static List<ItemFilm> items;
@@ -52,9 +57,18 @@ public class MainFragment extends Fragment {
                 String descNew = bundle.getString(desc);
                 FilmsItemLab.Adding(titleNew, descNew);
                 items = FilmsItemLab.getInstance(getContext()).getItems();
+
+
+                goJson();
             }
         });
         setRetainInstance(true);
+
+    }
+
+    private void goJson() {
+        Gson gson = new Gson();
+
     }
 
     @Override
@@ -67,6 +81,26 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new FilmsItemAdapter(LayoutInflater.from(v.getContext()), items));
+
+        app.getInstance().moviesServices.getMovies().enqueue(new Callback<List<MovieTemp>>() {
+            @Override
+            public void onResponse(Call<List<MovieTemp>> call, retrofit2.Response<List<MovieTemp>> response) {
+                if (response.isSuccessful()){
+                    List<MovieTemp> movieTemps = response.body();
+                    movieTemps.clear();
+                    for( MovieTemp movieTemp: movieTemps){
+                       // логика перезаписи в нашу структуру
+                    }
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<MovieTemp>> call, Throwable t) {
+
+            }
+        });
     }
     public static List<ItemFilm> getItems() {
         return items;
